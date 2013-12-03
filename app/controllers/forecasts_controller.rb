@@ -1,21 +1,45 @@
 class ForecastsController < ApplicationController
 
-  API_Key = 'qmv3hm4qz9m7pbvgkgngg8ed'.freeze
-
-  require 'open-uri' # Get data from API
-  require 'json' # Interpret data from API
-  
   def index
-   respond_to do |format|
-      format.html # index.html.erb
+  
+    @forecast = Forecast.new
+  
+    user = current_user
+  
+    @data = if user && user.current_location && user.current_days
+      user.get_forecast!
+    else
+      User.get_forecast( 'London', 7 )
     end
+
+    respond_to do |format|
+      format.html
+    end
+    
+  end
+
+  def create
+    redirect_to action: "search"
   end
   
   def search
-    data = ActiveSupport::JSON.decode(open("http://api.worldweatheronline.com/free/v1/weather.ashx?q=london&format=json&num_of_days=5&key=#{ API_Key }").read)
-    respond_to do |format|
-      format.html # search.html.erb
+    
+    args = params[:location], params[:days]
+    
+    @data = if user_signed_in?
+    
+      current_user.get_forecast! *args
+      
+    else
+
+      User.get_forecast *args
+      
     end
+
+    respond_to do |format|
+      format.html { render :index }
+    end
+    
   end
 
 end
