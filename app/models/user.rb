@@ -18,12 +18,9 @@ class User < ActiveRecord::Base
     params_hash[:location] ||= current_location
     params_hash[:days] ||= current_days
   
-    if params_hash[:location] != prev_location || params_hash[:days] != current_days 
+    if params_hash[:location] != prev_location || params_hash[:days] != prev_days 
       
-      self.prev_location, self.prev_days = self.current_location, self.current_days
-      self.current_location, self.current_days = params_hash[:location], params_hash[:days]
-      
-      save!
+      update_attributes( prev_location: current_location, prev_days: current_days, current_location: params_hash[:location], current_days: params_hash[:days] )
       
     end
     
