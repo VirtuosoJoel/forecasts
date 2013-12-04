@@ -37,10 +37,10 @@ class User < ActiveRecord::Base
   
   def self.get_forecast( params_hash={} )
   
-    location = params_hash[:location] || 'London'
-    days = params_hash[:days] || 1
+    params_hash[:location] ||= 'London'
+    params_hash[:days] ||= 1
   
-    search_string = "http://api.worldweatheronline.com/free/v1/weather.ashx?q=#{ URI.escape( location ) }&format=json&num_of_days=#{ days }&key=#{ API_Key }"
+    search_string = "http://api.worldweatheronline.com/free/v1/weather.ashx?q=#{ URI.escape( params_hash[:location] ) }&format=json&num_of_days=#{ params_hash[:days] }&key=#{ API_Key }"
     ActiveSupport::JSON.decode( open( search_string ).read )
     
   end
