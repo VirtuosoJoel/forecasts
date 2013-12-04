@@ -1,5 +1,6 @@
 require 'open-uri' # Get data from API
-require 'json' # Interpret data from API
+require 'json'     # Interpret data from API
+require 'uri'      # Escape location String
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
@@ -11,7 +12,10 @@ class User < ActiveRecord::Base
   
   API_Key = 'qmv3hm4qz9m7pbvgkgngg8ed'.freeze
 
-  def get_forecast!( location=current_location, days=current_days )
+  def get_forecast!( params_hash={} )
+  
+    location = params_hash[:location] || current_location
+    days = params_hash[:days] || current_days
   
     if location != prev_location || days != current_days 
       
@@ -26,10 +30,17 @@ class User < ActiveRecord::Base
   
   end
   
-  def self.get_forecast( location, days )
+  def self.get_forecast( params_hash={} )
   
-    search_string = "http://api.worldweatheronline.com/free/v1/weather.ashx?q=#{ location }&format=json&num_of_days=#{ days }&key=#{ API_Key }"
+    location = params_hash[:location] || 'London'
+    days = params_hash[:days] || 1
+  
+    search_string = "http://api.worldweatheronline.com/free/v1/weather.ashx?q=#{ URI.escape( location ) }&format=json&num_of_days=#{ days }&key=#{ API_Key }"
     ActiveSupport::JSON.decode( open( search_string ).read )
+    
+  end
+  
+  def self.validate( location, days )
     
   end
   
