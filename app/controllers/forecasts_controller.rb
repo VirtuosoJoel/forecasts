@@ -43,4 +43,8 @@ class ForecastsController < ApplicationController
     
   end
 
+  def debug_output( msg )
+    puts '*'*80, msg, '*'*80
+  end
+  
 end
