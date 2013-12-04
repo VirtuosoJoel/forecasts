@@ -3,7 +3,7 @@
   
   <% if @forecast.errors.any? %>
     <div id="errorExplanation">
-      <h2><%= pluralize(@forecast.errors.count, "error") %> forecast failed:</h2>
+      <h2>Search failed with <%= pluralize(@forecast.errors.count, "error") %>:</h2>
       <ul>
       <% @forecast.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,6 +11,10 @@
       </ul>
     </div>
   <% end %>  
+  
+  <div class="formtitle">
+    <h3>Find Forecast:</h2>
+  </div>
   
   <div class="field">
     <%= f.label :location %><br />  
@@ -31,118 +35,125 @@
 <%# CURRENT WEATHER %>
 <% if @data && @data["data"] %>
 
-  <div class="tabs">
-      <div class="tabber">
+  <div class="current">
 
+    <div style="width:auto; height:auto; text-align: center;">
+      <h2>Current</h2>
+
+      <table width="100%" class="table" style="margin-left: auto;">
+      <tbody>
+        <tr>
+          <%= image_tag @data["data"]["current_condition"][0]["weatherIconUrl"][0]["value"] %>
+        </tr>
+        <tr>
+          <th>City</th>
+          <td><%= @data["data"]["request"][0]["query"] %></td>
+        </tr>
+        <tr>
+          <th>Observation Time</th>
+          <td><%= @data["data"]["current_condition"][0]["observation_time"] %></td>
+        </tr>
+        <tr>
+          <th>Temperature Celsius</th>
+          <td><%= @data["data"]["current_condition"][0]["temp_C"] %> C</td>
+        </tr>
+        <tr>
+          <th>Temperature Farenheit</th>
+          <td><%= @data["data"]["current_condition"][0]["temp_F"] %> F</td>
+        </tr>
+        <tr>
+          <th>Weather Code</th>
+          <td><%= @data["data"]["current_condition"][0]["weatherCode"] %></td>
+        </tr>
+        
+        <tr>
+          <th>Description</th>
+          <td><%= tempvar = @data["data"]["current_condition"][0]["weatherDesc"][0]["value"]
+            tempvar += ', with a chance of meatballs' if tempvar == 'Cloudy'
+            tempvar
+          %></td>
+        </tr>
+        <tr>
+          <th>Windspeed Miles</th>
+          <td><%= @data["data"]["current_condition"][0]["windspeedMiles"] %></td>
+        </tr>
+        <tr>
+          <th>Windspeed Kmph</th>
+          <td><%= @data["data"]["current_condition"][0]["windspeedKmph"] %></td>
+        </tr>
+        <tr>
+          <th>Winddir Degree</th>
+          <td><%= @data["data"]["current_condition"][0]["winddirDegree"] %></td>
+        </tr>
+        <tr>
+          <th>Winddir 16Point</th>
+          <td><%= @data["data"]["current_condition"][0]["winddir16Point"] %></td>
+        </tr>
+        <tr>
+          <th>Precip MM</th>
+          <td><%= @data["data"]["current_condition"][0]["precipMM"] %></td>
+        </tr>
+        <tr>
+          <th>Humidity</th>
+          <td><%= @data["data"]["current_condition"][0]["humidity"] %> </td>
+        </tr>
+        <tr>
+          <th>Visibility</th>
+          <td><%= @data["data"]["current_condition"][0]["visibility"] %></td>
+        </tr>
+        <tr>
+          <th>Pressure</th>
+          <td><%= @data["data"]["current_condition"][0]["pressure"] %></td>
+        </tr>
+        <tr>
+          <th>cloudcover</th>
+          <td><%= @data["data"]["current_condition"][0]["cloudcover"] %></td>
+        </tr>
        
-       <div class="tabbertab">
-       <h2>Observe</h2>
-      
-      
-      <div style="float:left; width:30%; height:auto"><%= image_tag @data["data"]["current_condition"][0]["weatherIconUrl"][0]["value"] %></div>
-      
-        <div style="float:left; width:70%; height:auto">
-      
-        <table width="50%" class="table table-striped">
-        <tbody>
-          <tr>
-           
-            <th>City</th>
-            <td><%= @data["data"]["request"][0]["query"] %></td>
-          </tr>
-          <tr>
-            <th>Observation Time</th>
-            <td><%= @data["data"]["current_condition"][0]["observation_time"] %></td>
-          </tr>
-          <tr>
-            <th>Temperature Celsius</th>
-            <td><%= @data["data"]["current_condition"][0]["temp_C"] %> C</td>
-          </tr>
-          <tr>
-            <th>Temperature Farenheit</th>
-            <td><%= @data["data"]["current_condition"][0]["temp_F"] %> F</td>
-          </tr>
-          <tr>
-            <th>Weather Code</th>
-            <td><%= @data["data"]["current_condition"][0]["weatherCode"] %></td>
-          </tr>
-          
-          <tr>
-            <th>Description</th>
-            <td><%= tempvar = @data["data"]["current_condition"][0]["weatherDesc"][0]["value"]
-              tempvar += ' with a chance of meatballs' if tempvar == 'Cloudy'
-              tempvar
-            %></td>
-          </tr>
-          <tr>
-            <th>Windspeed Miles</th>
-            <td><%= @data["data"]["current_condition"][0]["windspeedMiles"] %></td>
-          </tr>
-          <tr>
-            <th>Windspeed Kmph</th>
-            <td><%= @data["data"]["current_condition"][0]["windspeedKmph"] %></td>
-          </tr>
-          <tr>
-            <th>Winddir Degree</th>
-            <td><%= @data["data"]["current_condition"][0]["winddirDegree"] %></td>
-          </tr>
-          <tr>
-            <th>Winddir 16Point</th>
-            <td><%= @data["data"]["current_condition"][0]["winddir16Point"] %></td>
-          </tr>
-          <tr>
-            <th>Precip MM</th>
-            <td><%= @data["data"]["current_condition"][0]["precipMM"] %></td>
-          </tr>
-          <tr>
-            <th>Humidity</th>
-            <td><%= @data["data"]["current_condition"][0]["humidity"] %> </td>
-          </tr>
-          <tr>
-            <th>Visibility</th>
-            <td><%= @data["data"]["current_condition"][0]["visibility"] %></td>
-          </tr>
-          <tr>
-            <th>Pressure</th>
-            <td><%= @data["data"]["current_condition"][0]["pressure"] %></td>
-          </tr>
-          <tr>
-            <th>cloudcover</th>
-            <td><%= @data["data"]["current_condition"][0]["cloudcover"] %></td>
-          </tr>
-         
-        </tbody>
-  </table>
+      </tbody>
+      </table>
 
-  </div>
+    </div>
   </div>
 
+</br>
+</br>
+  
+  <div style="height:400px;"></div>
+  
   <%# FORECAST %>
   <% @data["data"]["weather"].each do |i| %>
 
-   <div class="tabbertab">
-  <h2><%= i["date"]%></h2>
+   <div class="forecast">
 
-
-    <div style="float:left; height:auto">
-    <table class="table table-striped">
+    <div style="float:left; height:auto; width:20%; ; text-align: center;">
+    <h2><%= i["date"]%></h2>
+    
+      <table class="table" >
             
             <tbody>
               <tr>
-                <th>Maximum Temperature Celsius</th>
-                <td><%= i["tempMaxC"]%> C</td>
+                <%= image_tag i["weatherIconUrl"][0]["value"] %>
+              </tr>
+              <tr> 
+                <th>weatherDesc</th>
+                <td><%= i["weatherDesc"][0]["value"]%></td>
               </tr>
               <tr>
-                <th>Minimum Temperature Celsius</th>
-                <td><%= i["tempMinC"]%> C</td>
+                <th>Max Temperature (C)</th>
+                <td><%= i["tempMaxC"]%>°C</td>
               </tr>
               <tr>
-                <th>Maximum Temperature Farenheit</th>
-                <td><%= i["tempMaxF"]%> F</td>
+                <th>Min Temperature (C)</th>
+                <td><%= i["tempMinC"]%>°C</td>
               </tr>
               <tr>
-                <th>Minimum Temperature Farenheit</th>
-                <td><%= i["tempMinF"]%> F</td>
+                <th>Maximum Temperature (F)</th>
+                <td><%= i["tempMaxF"]%>°F</td>
+              </tr>
+              <tr>
+                <th>Minimum Temperature (F)</th>
+                <td><%= i["tempMinF"]%>°F</td>
               </tr>
               <tr>
                 <th>windspeedMiles</th>
@@ -164,39 +175,20 @@
                 <th>winddirDegree</th>
                 <td><%= i["winddirDegree"]%></td>
               </tr>
-              
-               <tr>
-                  <th>WeatherIconUrl</th>
-                  <td><%= image_tag i["weatherIconUrl"][0]["value"] %> </td>
-                </tr>
-                <tr>
-                  <th>weatherDesc</th>
-                  <td><%= i["weatherDesc"][0]["value"]%></td>
-                </tr>
-                <tr>
-                  <th>precipMM</th>
-                  <td><%= i["precipMM"]%></td>
-                </tr>
+              <tr>
+                <th>precipMM</th>
+                <td><%= i["precipMM"]%></td>
+              </tr>
               
             </tbody>
       </table>
-      
-      
 
-  </div>
+    </div>
    </div>
 
    <% end %>
-   
+  
 <%# ERROR MESSAGE %>
 <% else %>
-
-<p>An error occurred. Please check your input and try again, or contact the website administrator.</p>
-   
- <% end %>
- 
- 
- <%# PREVIOUS SEARCH %>
- <% if user_signed_in? && current_user.prev_location && current_user.prev_days %>
-  <%= link_to 'Previous Search', current_user.previous_forecast %>
- <% end %>
+  <p class = "errormsg">An error occurred. Please check your input and try again, or contact the website administrator.</p>
+<% end %>
