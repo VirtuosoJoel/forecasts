@@ -1,3 +1,4 @@
+<%# SEARCH FORM %>
 <%= form_for(@forecast) do |f| %>
   
   <% if @forecast.errors.any? %>
@@ -17,7 +18,7 @@
   </div>
   
   <div class="field">
-    <%= f.label :days %><br />  
+    <%= f.label :days, 'Days: 1-5' %><br />  
     <%= f.text_field :days %>
   </div>
   
@@ -27,14 +28,13 @@
   
 <% end %>
 
-
-
-
-<% if @data %>
+<%# CURRENT WEATHER %>
+<% if @data && @data["data"] %>
 
   <div class="tabs">
       <div class="tabber">
 
+       
        <div class="tabbertab">
        <h2>Observe</h2>
       
@@ -69,7 +69,10 @@
           
           <tr>
             <th>Description</th>
-            <td><%= @data["data"]["current_condition"][0]["weatherDesc"][0]["value"] %></td>
+            <td><%= tempvar = @data["data"]["current_condition"][0]["weatherDesc"][0]["value"]
+              tempvar += ' with a chance of meatballs' if tempvar == 'Cloudy'
+              tempvar
+            %></td>
           </tr>
           <tr>
             <th>Windspeed Miles</th>
@@ -114,7 +117,7 @@
   </div>
   </div>
 
-
+  <%# FORECAST %>
   <% @data["data"]["weather"].each do |i| %>
 
    <div class="tabbertab">
@@ -185,12 +188,15 @@
 
    <% end %>
    
+<%# ERROR MESSAGE %>
 <% else %>
 
-<p>An unexpected error occurred. Please try again or contact the website administrator.</p>
+<p>An error occurred. Please check your input and try again, or contact the website administrator.</p>
    
  <% end %>
  
+ 
+ <%# PREVIOUS SEARCH %>
  <% if user_signed_in? && current_user.prev_location && current_user.prev_days %>
   <%= link_to 'Previous Search', current_user.previous_forecast %>
  <% end %>
