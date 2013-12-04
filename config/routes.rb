@@ -3,8 +3,6 @@ Forecasts::Application.routes.draw do
 
   resources :forecasts
   
-  get 'search' => 'forecasts#search'
-  
   root :to => "forecasts#index"
 
 end
