@@ -187,6 +187,10 @@
    
 <% else %>
 
-<p> An unexpected error occurred. Please try again or contact the website administrator. </p>
+<p>An unexpected error occurred. Please try again or contact the website administrator.</p>
    
+ <% end %>
+ 
+ <% if user_signed_in? && current_user.prev_location && current_user.prev_days %>
+  <%= link_to 'Previous Search', current_user.previous_forecast %>
  <% end %>
