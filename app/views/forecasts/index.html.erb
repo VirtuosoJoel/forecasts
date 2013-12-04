@@ -1,178 +1,3 @@
-<p> Test </p>
-
-
-
-
-<div class="tabs">
-    <div class="tabber">
-
-     <div class="tabbertab">
-	   <h2>Observe</h2>
-	  
-	  
-	  <div style="float:left; width:30%; height:auto"><%= image_tag @data["data"]["current_condition"][0]["weatherIconUrl"][0]["value"] %></div>
-	  
-	    <div style="float:left; width:70%; height:auto">
-		
-      <table width="50%" class="table table-striped">
-      <tbody>
-        <tr>
-         
-          <th>City</th>
-          <td><%= @data["data"]["request"][0]["query"] %></td>
-        </tr>
-        <tr>
-          <th>Observation Time</th>
-          <td><%= @data["data"]["current_condition"][0]["observation_time"] %></td>
-        </tr>
-        <tr>
-          <th>Temperature Celsius</th>
-          <td><%= @data["data"]["current_condition"][0]["temp_C"] %> C</td>
-        </tr>
-        <tr>
-          <th>Temperature Farenheit</th>
-          <td><%= @data["data"]["current_condition"][0]["temp_F"] %> F</td>
-        </tr>
-        <tr>
-          <th>Weather Code</th>
-          <td><%= @data["data"]["current_condition"][0]["weatherCode"] %></td>
-        </tr>
-        
-        <tr>
-          <th>Description</th>
-          <td><%= @data["data"]["current_condition"][0]["weatherDesc"][0]["value"] %></td>
-        </tr>
-        <tr>
-          <th>Windspeed Miles</th>
-          <td><%= @data["data"]["current_condition"][0]["windspeedMiles"] %></td>
-        </tr>
-        <tr>
-          <th>Windspeed Kmph</th>
-          <td><%= @data["data"]["current_condition"][0]["windspeedKmph"] %></td>
-        </tr>
-        <tr>
-          <th>Winddir Degree</th>
-          <td><%= @data["data"]["current_condition"][0]["winddirDegree"] %></td>
-        </tr>
-        <tr>
-          <th>Winddir 16Point</th>
-          <td><%= @data["data"]["current_condition"][0]["winddir16Point"] %></td>
-        </tr>
-        <tr>
-          <th>Precip MM</th>
-          <td><%= @data["data"]["current_condition"][0]["precipMM"] %></td>
-        </tr>
-        <tr>
-          <th>Humidity</th>
-          <td><%= @data["data"]["current_condition"][0]["humidity"] %> </td>
-        </tr>
-        <tr>
-          <th>Visibility</th>
-          <td><%= @data["data"]["current_condition"][0]["visibility"] %></td>
-        </tr>
-        <tr>
-          <th>Pressure</th>
-          <td><%= @data["data"]["current_condition"][0]["pressure"] %></td>
-        </tr>
-        <tr>
-          <th>cloudcover</th>
-          <td><%= @data["data"]["current_condition"][0]["cloudcover"] %></td>
-        </tr>
-       
-      </tbody>
-</table>
-
-</div>
-</div>
-
-
-<% @a ||= [] %>
-<% @data["data"]["weather"].each do |p| %>
-<% @a << p %>
-<% end %>
-
-
-
-
-
-<% @a.each do |i| %>
- <div class="tabbertab">
-<h2><%= i["date"]%></h2>
-
-
-  <div style="float:left; height:auto">
-  <table class="table table-striped">
-          
-          <tbody>
-            <tr>
-              <th>Maximum Temperature Celsius</th>
-              <td><%= i["tempMaxC"]%> C</td>
-            </tr>
-            <tr>
-              <th>Minimum Temperature Celsius</th>
-              <td><%= i["tempMinC"]%> C</td>
-            </tr>
-            <tr>
-              <th>Maximum Temperature Farenheit</th>
-              <td><%= i["tempMaxF"]%> F</td>
-            </tr>
-            <tr>
-              <th>Minimum Temperature Farenheit</th>
-              <td><%= i["tempMinF"]%> F</td>
-            </tr>
-            <tr>
-              <th>windspeedMiles</th>
-              <td><%= i["windspeedMiles"]%></td>
-            </tr>
-            <tr>
-              <th>windspeedKmph</th>
-              <td><%= i["windspeedKmph"]%></td>
-            </tr>
-            <tr>
-              <th>winddirection</th>
-              <td><%= i["winddirection"]%></td>
-            </tr>
-            <tr>
-              <th>winddir16Point</th>
-              <td><%= i["winddir16Point"]%></td>
-            </tr>
-            <tr>
-              <th>winddirDegree</th>
-              <td><%= i["winddirDegree"]%></td>
-            </tr>
-            
-             <tr>
-                <th>WeatherIconUrl</th>
-                <td><%= image_tag i["weatherIconUrl"][0]["value"] %> </td>
-              </tr>
-              <tr>
-                <th>weatherDesc</th>
-                <td><%= i["weatherDesc"][0]["value"]%></td>
-              </tr>
-              <tr>
-                <th>precipMM</th>
-                <td><%= i["precipMM"]%></td>
-              </tr>
-            
-          </tbody>
-    </table>
-    
-    
-
-</div>
- </div>
-
- <% end %>
- 
-
-
-
-</div>
-      
-       <div class="clear"></div>       
-</div>
-
-
 <%= form_for(@forecast) do |f| %>
   
   <% if @forecast.errors.any? %>
@@ -188,16 +13,180 @@
   
   <div class="field">
     <%= f.label :location %><br />  
-    <%= f.text_field :location, :value => @forecast.location || session[ :location ] %>
+    <%= f.text_field :location %>
   </div>
   
   <div class="field">
     <%= f.label :days %><br />  
-    <%= f.text_field :days, :value => @forecast.days || session[ :days ] %>
+    <%= f.text_field :days %>
   </div>
   
   <div class="actions">
-    <%= f.submit "Save" %>
+    <%= f.submit "Show Forecast" %>
   </div>
   
 <% end %>
+
+
+
+
+<% if @data %>
+
+  <div class="tabs">
+      <div class="tabber">
+
+       <div class="tabbertab">
+       <h2>Observe</h2>
+      
+      
+      <div style="float:left; width:30%; height:auto"><%= image_tag @data["data"]["current_condition"][0]["weatherIconUrl"][0]["value"] %></div>
+      
+        <div style="float:left; width:70%; height:auto">
+      
+        <table width="50%" class="table table-striped">
+        <tbody>
+          <tr>
+           
+            <th>City</th>
+            <td><%= @data["data"]["request"][0]["query"] %></td>
+          </tr>
+          <tr>
+            <th>Observation Time</th>
+            <td><%= @data["data"]["current_condition"][0]["observation_time"] %></td>
+          </tr>
+          <tr>
+            <th>Temperature Celsius</th>
+            <td><%= @data["data"]["current_condition"][0]["temp_C"] %> C</td>
+          </tr>
+          <tr>
+            <th>Temperature Farenheit</th>
+            <td><%= @data["data"]["current_condition"][0]["temp_F"] %> F</td>
+          </tr>
+          <tr>
+            <th>Weather Code</th>
+            <td><%= @data["data"]["current_condition"][0]["weatherCode"] %></td>
+          </tr>
+          
+          <tr>
+            <th>Description</th>
+            <td><%= @data["data"]["current_condition"][0]["weatherDesc"][0]["value"] %></td>
+          </tr>
+          <tr>
+            <th>Windspeed Miles</th>
+            <td><%= @data["data"]["current_condition"][0]["windspeedMiles"] %></td>
+          </tr>
+          <tr>
+            <th>Windspeed Kmph</th>
+            <td><%= @data["data"]["current_condition"][0]["windspeedKmph"] %></td>
+          </tr>
+          <tr>
+            <th>Winddir Degree</th>
+            <td><%= @data["data"]["current_condition"][0]["winddirDegree"] %></td>
+          </tr>
+          <tr>
+            <th>Winddir 16Point</th>
+            <td><%= @data["data"]["current_condition"][0]["winddir16Point"] %></td>
+          </tr>
+          <tr>
+            <th>Precip MM</th>
+            <td><%= @data["data"]["current_condition"][0]["precipMM"] %></td>
+          </tr>
+          <tr>
+            <th>Humidity</th>
+            <td><%= @data["data"]["current_condition"][0]["humidity"] %> </td>
+          </tr>
+          <tr>
+            <th>Visibility</th>
+            <td><%= @data["data"]["current_condition"][0]["visibility"] %></td>
+          </tr>
+          <tr>
+            <th>Pressure</th>
+            <td><%= @data["data"]["current_condition"][0]["pressure"] %></td>
+          </tr>
+          <tr>
+            <th>cloudcover</th>
+            <td><%= @data["data"]["current_condition"][0]["cloudcover"] %></td>
+          </tr>
+         
+        </tbody>
+  </table>
+
+  </div>
+  </div>
+
+
+  <% @data["data"]["weather"].each do |i| %>
+
+   <div class="tabbertab">
+  <h2><%= i["date"]%></h2>
+
+
+    <div style="float:left; height:auto">
+    <table class="table table-striped">
+            
+            <tbody>
+              <tr>
+                <th>Maximum Temperature Celsius</th>
+                <td><%= i["tempMaxC"]%> C</td>
+              </tr>
+              <tr>
+                <th>Minimum Temperature Celsius</th>
+                <td><%= i["tempMinC"]%> C</td>
+              </tr>
+              <tr>
+                <th>Maximum Temperature Farenheit</th>
+                <td><%= i["tempMaxF"]%> F</td>
+              </tr>
+              <tr>
+                <th>Minimum Temperature Farenheit</th>
+                <td><%= i["tempMinF"]%> F</td>
+              </tr>
+              <tr>
+                <th>windspeedMiles</th>
+                <td><%= i["windspeedMiles"]%></td>
+              </tr>
+              <tr>
+                <th>windspeedKmph</th>
+                <td><%= i["windspeedKmph"]%></td>
+              </tr>
+              <tr>
+                <th>winddirection</th>
+                <td><%= i["winddirection"]%></td>
+              </tr>
+              <tr>
+                <th>winddir16Point</th>
+                <td><%= i["winddir16Point"]%></td>
+              </tr>
+              <tr>
+                <th>winddirDegree</th>
+                <td><%= i["winddirDegree"]%></td>
+              </tr>
+              
+               <tr>
+                  <th>WeatherIconUrl</th>
+                  <td><%= image_tag i["weatherIconUrl"][0]["value"] %> </td>
+                </tr>
+                <tr>
+                  <th>weatherDesc</th>
+                  <td><%= i["weatherDesc"][0]["value"]%></td>
+                </tr>
+                <tr>
+                  <th>precipMM</th>
+                  <td><%= i["precipMM"]%></td>
+                </tr>
+              
+            </tbody>
+      </table>
+      
+      
+
+  </div>
+   </div>
+
+   <% end %>
+   
+<% else %>
+
+<p> An unexpected error occurred. Please try again or contact the website administrator. </p>
+   
+ <% end %>
