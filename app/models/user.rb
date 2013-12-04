@@ -7,27 +7,32 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-         
+
+  attr_accessible :email, :password, :password_confirmation
   attr_accessible :current_location, :current_days, :prev_location, :prev_days
   
   API_Key = 'qmv3hm4qz9m7pbvgkgngg8ed'.freeze
 
   def get_forecast!( params_hash={} )
   
-    location = params_hash[:location] || current_location
-    days = params_hash[:days] || current_days
+    params_hash[:location] ||= current_location
+    params_hash[:days] ||= current_days
   
-    if location != prev_location || days != current_days 
+    if params_hash[:location] != prev_location || params_hash[:days] != current_days 
       
       self.prev_location, self.prev_days = self.current_location, self.current_days
-      self.current_location, self.current_days = location, days
+      self.current_location, self.current_days = params_hash[:location], params_hash[:days]
       
       save!
       
     end
     
-    self.class.get_forecast( location, days )
+    self.class.get_forecast( params_hash )
   
+  end
+  
+  def previous_forecast
+    get_forecast!( { location: prev_location, days: prev_days } )
   end
   
   def self.get_forecast( params_hash={} )
@@ -37,10 +42,6 @@ class User < ActiveRecord::Base
   
     search_string = "http://api.worldweatheronline.com/free/v1/weather.ashx?q=#{ URI.escape( location ) }&format=json&num_of_days=#{ days }&key=#{ API_Key }"
     ActiveSupport::JSON.decode( open( search_string ).read )
-    
-  end
-  
-  def self.validate( location, days )
     
   end
   
