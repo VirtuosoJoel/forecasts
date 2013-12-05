@@ -9,5 +9,11 @@ Written on Windows with:
 * Qqlite3 1.3.8 x86-mingw32
 * API: World Weather Online
 
-Demo image:
+== Screenshot ==
+
 ![Demo](https://raw.github.com/VirtuosoJoel/forecasts/master/Demo.jpg)
+
+== Todo ==
+
+* Improve layout
+* Add some flair with JQuery
