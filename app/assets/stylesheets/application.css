@@ -18,6 +18,11 @@
   top: 10px;
   left: 600px;
   width: 30%;
+  border: 1px dotted MediumBlue;
+ }
+ 
+ div.forecast {
+  border: 1px dotted MediumBlue;
  }
  
  div.new_forecast {
@@ -223,6 +228,5 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
-  color: #333333;
-  background-color: #ffffff;
+  background-color: #AFDFEB;
 }
