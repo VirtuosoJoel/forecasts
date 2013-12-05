@@ -10,4 +10,4 @@ Written on Windows with:
 * API: World Weather Online
 
 Demo image:
-![Demo](/Demo.jpg)
+![Demo](https://raw.github.com/VirtuosoJoel/forecasts/master/Demo.jpg)
