@@ -123,10 +123,8 @@
   <%# FORECAST %>
   <% @data["data"]["weather"].each do |i| %>
 
-   <div class="forecast">
-
-    <div style="float:left; height:auto; width:20%; ; text-align: center;">
-    <h2><%= i["date"]%></h2>
+    <div class="forecast" style="float:left; height:auto; width:19.5%; ; text-align: center;">
+      <h2><%= i["date"]%></h2>
     
       <table class="table" >
             
@@ -182,7 +180,6 @@
             </tbody>
       </table>
 
-    </div>
    </div>
 
    <% end %>
