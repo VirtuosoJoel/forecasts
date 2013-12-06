@@ -13,21 +13,31 @@
  */
  
  div.current {
-  display:inline-block;
-  position:absolute;
-  top: 10px;
-  left: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  align: center;
   width: 30%;
+  height: auto;
+  display: block;
   border: 1px dotted MediumBlue;
- }
+  box-shadow: 10px 10px 5px #888888;
+  text-align: center;
+}
  
  div.forecast {
   border: 1px dotted MediumBlue;
+  box-shadow: 2px 2px 1px #888888;
+  text-align: center;
+  width: 17%;
+  margin: 1%;
+  height: auto;
+  float: left;
  }
  
- div.new_forecast {
-  position:absolute;
-  left: 0;
+ .new_forecast {
+  width: 300px;
+  height: 300px;
+  float: left;
  }
  
  label {
@@ -37,8 +47,6 @@
  div.login {
   float: right;
   font: bold 14px Arial;
-  position:absolute;
-  right:0;
   padding-right: 5px
  }
  
@@ -228,5 +236,5 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
-  background-color: #AFDFEB;
+  background-color: #64A8D1;
 }
