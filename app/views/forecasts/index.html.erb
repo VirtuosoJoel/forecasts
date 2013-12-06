@@ -37,7 +37,6 @@
 
   <div class="current">
 
-    <div style="width:auto; height:auto; text-align: center;">
       <h2>Current</h2>
 
       <table width="100%" class="table" style="margin-left: auto;">
@@ -112,18 +111,15 @@
       </tbody>
       </table>
 
-    </div>
   </div>
 
 </br>
 </br>
-  
-  <div style="height:400px;"></div>
-  
+
   <%# FORECAST %>
   <% @data["data"]["weather"].each do |i| %>
 
-    <div class="forecast" style="float:left; height:auto; width:19.5%; ; text-align: center;">
+    <div class="forecast">
       <h2><%= i["date"]%></h2>
     
       <table class="table" >
