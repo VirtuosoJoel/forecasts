@@ -1,3 +1,4 @@
+# Class to control input form, not logged in database
 class Forecast
 
   include ActiveModel::Validations
